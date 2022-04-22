@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Wish List Items</h1>
+    <hr>
+    {% for i in item %}
+    
+    {% empty %}
+    <h3>No Wish Items Exist</h3>
+
+{% endfor %}
+{% if item %}
+{% for i in item %}
+    <table>
+        <thead>
+            <th>Description</th>
+            <th></th>
+        </thead>
+        <tbody>
+            <tr>
+                
+                <td>{{ i.description}}</td>
+                <td><form action="{% url 'delete_item' i.id %}" method="POST">
+                    {% csrf_token %}
+                    <input type="text" name="id" value="{{ i.id }}" hidden>
+                    <button>X</button>
+                </form></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+<a href="{% url 'add_item' %}">add item</a>
+</body>
+</html>
